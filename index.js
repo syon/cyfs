@@ -6,4 +6,9 @@ module.exports = {
     const list = cyfs.select()
     return list
   },
+  delete(order) {
+    const cyfs = new Cyfs(order)
+    const deletedList = cyfs.delete()
+    return deletedList
+  },
 }

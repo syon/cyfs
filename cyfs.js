@@ -2,6 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const glob = require("glob")
 const moment = require("moment")
+const rimraf = require("rimraf")
 
 module.exports = class Cyfs {
   constructor(order) {
@@ -47,11 +48,11 @@ module.exports = class Cyfs {
     const { order } = this
     if (!order) return []
     if (!order.glob) return []
-    let list = glob.sync(order.glob.pattern, order.glob.options)
+    this.list = glob.sync(order.glob.pattern, order.glob.options)
     if (order.name) {
       if (order.name.regex) {
         if (order.name.regex.pattern) {
-          list = list.filter(f => {
+          this.list = this.list.filter(f => {
             const filename = path.basename(f)
             const ptn = order.name.regex.pattern
             const flg = order.name.regex.flags || ""
@@ -61,7 +62,7 @@ module.exports = class Cyfs {
         }
       }
       if (order.name.contain) {
-        list = list.filter(fp => {
+        this.list = this.list.filter(fp => {
           const f = path.basename(fp)
           return order.name.contain.some(c => f.indexOf(c) !== -1)
         })
@@ -69,13 +70,13 @@ module.exports = class Cyfs {
     }
     if (order.size) {
       if (order.size.min) {
-        list = list.filter(f => {
+        this.list = this.list.filter(f => {
           const stat = fs.statSync(f)
           return stat.size >= order.size.min
         })
       }
       if (order.size.max) {
-        list = list.filter(f => {
+        this.list = this.list.filter(f => {
           const stat = fs.statSync(f)
           return stat.size <= order.size.max
         })
@@ -87,6 +88,14 @@ module.exports = class Cyfs {
       this.filterByStatDate(order.date.change, "ctime")
       this.filterByStatDate(order.date.birth, "birthtime")
     }
-    return list
+    return this.list
+  }
+
+  delete() {
+    const deletedList = this.select()
+    this.list.forEach(fp => {
+      rimraf.sync(fp)
+    })
+    return deletedList
   }
 }
