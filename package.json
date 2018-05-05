@@ -19,5 +19,15 @@
   "dependencies": {
     "glob": "^7.1.2",
     "moment": "^2.22.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier-eslint": "^8.8.1"
+  },
+  "prettier": {
+    "semi": false
   }
 }
