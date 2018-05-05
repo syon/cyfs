@@ -18,7 +18,8 @@
   "homepage": "https://github.com/syon/cyfs#readme",
   "dependencies": {
     "glob": "^7.1.2",
-    "moment": "^2.22.1"
+    "moment": "^2.22.1",
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^12.1.0",
