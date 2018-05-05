@@ -41,6 +41,7 @@ function filterByStatDate(pipedList, dateAfterBefore, statProp) {
 
 function cyfs(order) {
   if (!order) return []
+  if (!order.glob) return []
   let list = glob.sync(order.glob)
   if (order.name) {
     if (order.name.regex) {
