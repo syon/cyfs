@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/syon/cyfs/issues"
   },
-  "homepage": "https://github.com/syon/cyfs#readme"
+  "homepage": "https://github.com/syon/cyfs#readme",
+  "dependencies": {
+    "glob": "^7.1.2"
+  }
 }
