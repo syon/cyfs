@@ -106,9 +106,10 @@ module.exports = class Cyfs {
     const { format: tsFmt, only } = this.order.rename.timestamp
     newTargetSet.list = targetSet.list.map(entry => {
       const { before, after } = entry
-      const dn = path.dirname(after)
-      const ex = path.extname(after)
-      const bn = path.basename(after, ex)
+      if (!after) return entry
+      const dn = path.dirname(before)
+      const ex = path.extname(before)
+      const bn = path.basename(before, ex)
       const stat = fs.statSync(before)
       const tsPrefix = tsFmt ? moment(stat.mtime).format(tsFmt) : ""
       const basename = only ? `${tsPrefix}${ex}` : `${tsPrefix}${bn}${ex}`
@@ -129,14 +130,9 @@ module.exports = class Cyfs {
     const renamerOpts = {
       regex: !!opts.regex,
       insensitive: !!opts.insensitive,
-      find: opts.find,
+      find: opts.find || "^$",
       replace: opts.replace,
       files: targetList,
-    }
-    if (!renamerOpts.find && !renamerOpts.replace) {
-      renamerOpts.regex = true
-      renamerOpts.find = "(^.*$)"
-      renamerOpts.replace = "$1"
     }
     let targetSet = renamer.replace(renamerOpts)
     targetSet = this.injectTimestamp(targetSet)
@@ -146,6 +142,7 @@ module.exports = class Cyfs {
   dryRun() {
     const targetSet = this.renamePrepare()
     const result = renamer.dryRun(targetSet)
+    // TODO: Alert if contains error or warning
     return result
   }
 
