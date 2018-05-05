@@ -3,6 +3,7 @@ const path = require("path")
 const glob = require("glob")
 const moment = require("moment")
 const rimraf = require("rimraf")
+const renamer = require("renamer")
 
 module.exports = class Cyfs {
   constructor(order) {
@@ -92,10 +93,30 @@ module.exports = class Cyfs {
   }
 
   delete() {
-    const deletedList = this.select()
+    const targetList = this.select()
     this.list.forEach(fp => {
       rimraf.sync(fp)
     })
-    return deletedList
+    return targetList
+  }
+
+  renamePrepare() {
+    const targetList = this.select()
+    const renamerOpts = this.order.rename.options
+    renamerOpts.files = targetList
+    const targetSet = renamer.replace(renamerOpts)
+    return targetSet
+  }
+
+  dryRun() {
+    const targetSet = this.renamePrepare()
+    const result = renamer.dryRun(targetSet)
+    return result
+  }
+
+  rename() {
+    const targetSet = this.renamePrepare()
+    const result = renamer.rename(targetSet)
+    return result
   }
 }

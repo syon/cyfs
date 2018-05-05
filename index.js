@@ -11,4 +11,14 @@ module.exports = {
     const deletedList = cyfs.delete()
     return deletedList
   },
+  dryRun(order) {
+    const cyfs = new Cyfs(order)
+    const result = cyfs.dryRun()
+    return result
+  },
+  rename(order) {
+    const cyfs = new Cyfs(order)
+    const result = cyfs.rename()
+    return result
+  },
 }
