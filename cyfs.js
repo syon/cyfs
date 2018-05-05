@@ -103,7 +103,7 @@ module.exports = class Cyfs {
   injectTimestamp(targetSet) {
     if (!this.order.rename.timestamp) return targetSet
     const newTargetSet = targetSet
-    const { format, keepfilename } = this.order.rename.timestamp
+    const { format, only } = this.order.rename.timestamp
     newTargetSet.list = targetSet.list.map(entry => {
       const { before, after } = entry
       const dn = path.dirname(after)
@@ -113,7 +113,7 @@ module.exports = class Cyfs {
       let basename = ""
       if (format) {
         const ts = moment(stat.mtime).format(format)
-        basename = keepfilename ? `${ts}${bn}${ex}` : `${ts}${ex}`
+        basename = only ? `${ts}${ex}` : `${ts}${bn}${ex}`
       }
       return {
         before: entry.before,
@@ -124,9 +124,18 @@ module.exports = class Cyfs {
   }
 
   renamePrepare() {
+    const opts = this.order.rename
+    if (!opts || !opts.find || !opts.replace) {
+      throw new Error("Invalid rename order.")
+    }
     const targetList = this.select()
-    const renamerOpts = this.order.rename.options
-    renamerOpts.files = targetList
+    const renamerOpts = {
+      regex: !!opts.regex,
+      insensitive: !!opts.insensitive,
+      find: opts.find,
+      replace: opts.replace,
+      files: targetList,
+    }
     let targetSet = renamer.replace(renamerOpts)
     targetSet = this.injectTimestamp(targetSet)
     return targetSet
