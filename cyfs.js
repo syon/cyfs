@@ -100,11 +100,35 @@ module.exports = class Cyfs {
     return targetList
   }
 
+  injectTimestamp(targetSet) {
+    if (!this.order.rename.timestamp) return targetSet
+    const newTargetSet = targetSet
+    const { format, keepfilename } = this.order.rename.timestamp
+    newTargetSet.list = targetSet.list.map(entry => {
+      const { before, after } = entry
+      const dn = path.dirname(after)
+      const ex = path.extname(after)
+      const bn = path.basename(after, ex)
+      const stat = fs.statSync(before)
+      let basename = ""
+      if (format) {
+        const ts = moment(stat.mtime).format(format)
+        basename = keepfilename ? `${ts}${bn}${ex}` : `${ts}${ex}`
+      }
+      return {
+        before: entry.before,
+        after: `${dn}/${basename}`,
+      }
+    })
+    return newTargetSet
+  }
+
   renamePrepare() {
     const targetList = this.select()
     const renamerOpts = this.order.rename.options
     renamerOpts.files = targetList
-    const targetSet = renamer.replace(renamerOpts)
+    let targetSet = renamer.replace(renamerOpts)
+    targetSet = this.injectTimestamp(targetSet)
     return targetSet
   }
 
