@@ -21,4 +21,9 @@ module.exports = {
     const result = cyfs.rename()
     return result
   },
+  copy(order) {
+    const cyfs = new Cyfs(order)
+    const result = cyfs.copy()
+    return result
+  },
 }

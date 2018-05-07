@@ -4,6 +4,7 @@ const glob = require("glob")
 const moment = require("moment")
 const rimraf = require("rimraf")
 const renamer = require("renamer")
+const cpx = require("cpx")
 
 module.exports = class Cyfs {
   constructor(order) {
@@ -150,5 +151,24 @@ module.exports = class Cyfs {
     const targetSet = this.renamePrepare()
     const result = renamer.rename(targetSet)
     return result
+  }
+
+  copy() {
+    const opts = this.order.copy
+    const BASE_DIR = opts.baseDir || ""
+    const DEST_DIR = opts.destDir || "./_dest/"
+    const cpxOpts = { preserve: true }
+    this.select()
+    this.list.forEach(fp => {
+      const dn = path.dirname(fp)
+      let rp = dn.replace(BASE_DIR, "")
+      if (path.isAbsolute(rp)) {
+        rp = rp.replace(path.parse(rp).root, "")
+      }
+      const destDir = path.normalize(path.join(DEST_DIR, rp))
+      cpx.copySync(fp, destDir, cpxOpts)
+      console.log(fp, destDir)
+    })
+    return this.list
   }
 }
