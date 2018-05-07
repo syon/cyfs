@@ -1,2 +1,17 @@
 # cyfs
 🌀 cyfs :: Cyclone in file system. Recipe based file handling module.
+
+```js
+// show selected
+cyfs.select(order)
+// rename selected (filename only)
+cyfs.rename(order)
+// delete selected
+cyfs.delete(order)
+// copy selected and keep tree
+cyfs.squeeze(order, { baseDir: "", destDir: "_dest" })
+// copy selected as you like (dirname can be changed)
+cyfs.copy(order, { find: "", replace: "" })
+// move selected as you like (dirname can be changed)
+cyfs.move(order, { find: "", replace: "" })
+```
