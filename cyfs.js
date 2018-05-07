@@ -8,6 +8,9 @@ const cpx = require("cpx")
 
 module.exports = class Cyfs {
   constructor(order) {
+    if (!order || !order.select || !order.select.pattern) {
+      throw new Error()
+    }
     this.order = order
     this.list = []
   }
@@ -47,48 +50,46 @@ module.exports = class Cyfs {
   }
 
   select() {
-    const { order } = this
-    if (!order) return []
-    if (!order.glob) return []
-    this.list = glob.sync(order.glob.pattern, order.glob.options)
-    if (order.name) {
-      if (order.name.regex) {
-        if (order.name.regex.pattern) {
+    const o = this.order.select
+    this.list = glob.sync(o.pattern, o.options)
+    if (o.name) {
+      if (o.name.regex) {
+        if (o.name.regex.pattern) {
           this.list = this.list.filter(f => {
             const filename = path.basename(f)
-            const ptn = order.name.regex.pattern
-            const flg = order.name.regex.flags || ""
+            const ptn = o.name.regex.pattern
+            const flg = o.name.regex.flags || ""
             const regex = new RegExp(ptn, flg)
             return filename.match(regex)
           })
         }
       }
-      if (order.name.contain) {
+      if (o.name.contain) {
         this.list = this.list.filter(fp => {
           const f = path.basename(fp)
           return order.name.contain.some(c => f.indexOf(c) !== -1)
         })
       }
     }
-    if (order.size) {
-      if (order.size.min) {
+    if (o.size) {
+      if (o.size.min) {
         this.list = this.list.filter(f => {
           const stat = fs.statSync(f)
-          return stat.size >= order.size.min
+          return stat.size >= o.size.min
         })
       }
-      if (order.size.max) {
+      if (o.size.max) {
         this.list = this.list.filter(f => {
           const stat = fs.statSync(f)
-          return stat.size <= order.size.max
+          return stat.size <= o.size.max
         })
       }
     }
-    if (order.date) {
-      this.filterByStatDate(order.date.access, "atime")
-      this.filterByStatDate(order.date.modify, "mtime")
-      this.filterByStatDate(order.date.change, "ctime")
-      this.filterByStatDate(order.date.birth, "birthtime")
+    if (o.date) {
+      this.filterByStatDate(o.date.access, "atime")
+      this.filterByStatDate(o.date.modify, "mtime")
+      this.filterByStatDate(o.date.change, "ctime")
+      this.filterByStatDate(o.date.birth, "birthtime")
     }
     return this.list
   }
@@ -102,9 +103,9 @@ module.exports = class Cyfs {
   }
 
   injectTimestamp(targetSet) {
-    if (!this.order.rename.timestamp) return targetSet
+    if (!this.order.replace.file.timestamp) return targetSet
     const newTargetSet = targetSet
-    const { format: tsFmt, only } = this.order.rename.timestamp
+    const { format: tsFmt, only } = this.order.replace.file.timestamp
     newTargetSet.list = targetSet.list.map(entry => {
       const { before, after } = entry
       if (!after) return entry
@@ -123,9 +124,9 @@ module.exports = class Cyfs {
   }
 
   renamePrepare() {
-    const opts = this.order.rename
+    const opts = this.order.replace.file
     if (!opts) {
-      throw new Error("Invalid rename order.")
+      throw new Error("Invalid replace order.")
     }
     const targetList = this.select()
     const renamerOpts = {
@@ -135,20 +136,20 @@ module.exports = class Cyfs {
       replace: opts.replace,
       files: targetList,
     }
-    let targetSet = renamer.replace(renamerOpts)
-    targetSet = this.injectTimestamp(targetSet)
-    return targetSet
+    return renamer.replace(renamerOpts)
   }
 
   dryRun() {
-    const targetSet = this.renamePrepare()
+    let targetSet = this.renamePrepare()
+    targetSet = this.injectTimestamp(targetSet)
     const result = renamer.dryRun(targetSet)
     // TODO: Alert if contains error or warning
     return result
   }
 
   rename() {
-    const targetSet = this.renamePrepare()
+    let targetSet = this.renamePrepare()
+    targetSet = this.injectTimestamp(targetSet)
     const result = renamer.rename(targetSet)
     return result
   }
