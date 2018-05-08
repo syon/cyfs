@@ -9,7 +9,7 @@ cyfs.rename(order)
 // delete selected
 cyfs.delete(order)
 // copy selected and keep tree
-cyfs.squeeze(order, { baseDir: "", destDir: "_dest" })
+cyfs.fetch(order, { baseDir: "", destDir: "_dest" })
 // copy selected as you like (dirname can be changed)
 cyfs.copy(order, { find: "", replace: "" })
 // move selected as you like (dirname can be changed)

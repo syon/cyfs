@@ -154,8 +154,8 @@ module.exports = class Cyfs {
     return result
   }
 
-  copy() {
-    const opts = this.order.copy
+  fetch(options) {
+    const opts = options || this.order.copy
     const BASE_DIR = opts.baseDir || ""
     const DEST_DIR = opts.destDir || "./_dest/"
     const cpxOpts = { preserve: true }
