@@ -5,6 +5,7 @@ const moment = require("moment")
 const rimraf = require("rimraf")
 const renamer = require("renamer")
 const cpx = require("cpx")
+const shell = require("shelljs")
 
 module.exports = class Cyfs {
   constructor(order) {
@@ -67,7 +68,7 @@ module.exports = class Cyfs {
       if (o.name.contain) {
         this.list = this.list.filter(fp => {
           const f = path.basename(fp)
-          return order.name.contain.some(c => f.indexOf(c) !== -1)
+          return o.name.contain.some(c => f.indexOf(c) !== -1)
         })
       }
     }
@@ -168,8 +169,23 @@ module.exports = class Cyfs {
       }
       const destDir = path.normalize(path.join(DEST_DIR, rp))
       cpx.copySync(fp, destDir, cpxOpts)
-      console.log(fp, destDir)
     })
     return this.list
+  }
+
+  copy(options) {
+    this.select()
+    const { find, replace } = options
+    const re = new RegExp(find)
+    const entries = this.list.map(fp => {
+      const dest = fp.replace(re, replace)
+      return { src: fp, dest }
+    })
+    entries.forEach(e => {
+      const destDir = path.dirname(e.dest)
+      shell.mkdir("-p", destDir)
+      fs.copyFileSync(e.src, e.dest)
+    })
+    return entries
   }
 }

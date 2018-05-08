@@ -26,4 +26,9 @@ module.exports = {
     const result = cyfs.fetch(options)
     return result
   },
+  copy(order, options) {
+    const cyfs = new Cyfs(order)
+    const result = cyfs.copy(options)
+    return result
+  },
 }
