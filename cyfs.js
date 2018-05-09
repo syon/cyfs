@@ -13,7 +13,7 @@ module.exports = class Cyfs {
       throw new Error()
     }
     this.order = order
-    this.list = []
+    this.select()
   }
 
   static getStat(filepath, statProp) {
@@ -96,11 +96,10 @@ module.exports = class Cyfs {
   }
 
   delete() {
-    const targetList = this.select()
     this.list.forEach(fp => {
       rimraf.sync(fp)
     })
-    return targetList
+    return this.list
   }
 
   injectTimestamp(targetSet) {
@@ -129,13 +128,12 @@ module.exports = class Cyfs {
     if (!opts) {
       throw new Error("Invalid replace order.")
     }
-    const targetList = this.select()
     const renamerOpts = {
       regex: !!opts.regex,
       insensitive: !!opts.insensitive,
       find: opts.find || "^$",
       replace: opts.replace,
-      files: targetList,
+      files: this.list,
     }
     return renamer.replace(renamerOpts)
   }
@@ -160,7 +158,6 @@ module.exports = class Cyfs {
     const BASE_DIR = opts.baseDir || ""
     const DEST_DIR = opts.destDir || "./_dest/"
     const cpxOpts = { preserve: true }
-    this.select()
     this.list.forEach(fp => {
       const dn = path.dirname(fp)
       let rp = dn.replace(BASE_DIR, "")
@@ -174,7 +171,6 @@ module.exports = class Cyfs {
   }
 
   copy(options) {
-    this.select()
     const { find, replace } = options
     const re = new RegExp(find)
     const entries = this.list.map(fp => {
