@@ -1,28 +1,43 @@
 const Cyfs = require("./cyfs")
 
 module.exports = {
-  select(order, options = {}) {
+  select(order) {
     const cyfs = new Cyfs(order)
-    return cyfs.select(options)
+    return cyfs.select()
   },
-  delete(order, options = {}, isPreview = false) {
+  delete(order, isPreview = false) {
+    const act = order.action || {}
+    if (act.do !== "delete") throw new Error()
+    const opts = act.options
     const cyfs = new Cyfs(order)
-    return cyfs.delete(options, isPreview)
+    return cyfs.delete(opts, isPreview)
   },
-  rename(order, options = {}, isPreview = false) {
+  rename(order, isPreview = false) {
+    const act = order.action || {}
+    if (act.do !== "rename") throw new Error()
+    const opts = act.options
     const cyfs = new Cyfs(order)
-    return cyfs.rename(options, isPreview)
+    return cyfs.rename(opts, isPreview)
   },
-  fetch(order, options = {}, isPreview = false) {
+  fetch(order, isPreview = false) {
+    const act = order.action || {}
+    if (act.do !== "fetch") throw new Error()
+    const opts = act.options
     const cyfs = new Cyfs(order)
-    return cyfs.fetch(options, isPreview)
+    return cyfs.fetch(opts, isPreview)
   },
-  copy(order, options = {}, isPreview = false) {
+  copy(order, isPreview = false) {
+    const act = order.action || {}
+    if (act.do !== "copy") throw new Error()
+    const opts = act.options
     const cyfs = new Cyfs(order)
-    return cyfs.copy(options, isPreview)
+    return cyfs.copy(opts, isPreview)
   },
-  move(order, options = {}, isPreview = false) {
+  move(order, isPreview = false) {
+    const act = order.action || {}
+    if (act.do !== "move") throw new Error()
+    const opts = act.options
     const cyfs = new Cyfs(order)
-    return cyfs.move(options, isPreview)
+    return cyfs.move(opts, isPreview)
   },
 }
