@@ -184,4 +184,24 @@ module.exports = class Cyfs {
     })
     return entries
   }
+
+  move(options) {
+    const { find, replace, preview } = options
+    if (!find || !replace) {
+      const msg = "Invalid args: 'find' and 'replace' are required."
+      throw new Error(msg)
+    }
+    const re = new RegExp(find)
+    const entries = this.list.map(fp => {
+      const dest = fp.replace(re, replace)
+      return { src: fp, dest }
+    })
+    if (preview) return entries
+    entries.forEach(e => {
+      const destDir = path.dirname(e.dest)
+      shell.mkdir("-p", destDir)
+      fs.renameSync(e.src, e.dest)
+    })
+    return entries
+  }
 }
