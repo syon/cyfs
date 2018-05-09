@@ -29,6 +29,8 @@ $ npm install https://github.com/syon/cyfs
 
 ### select
 
+* https://github.com/isaacs/node-glob#options
+
 ```js
 const cyfs = require("cyfs")
 
@@ -52,7 +54,35 @@ const selected = cyfs(order)
 */
 ```
 
-* https://github.com/isaacs/node-glob#options
+### delete
+
+```js
+const cyfs = require("cyfs")
+
+const order = {
+  select: {
+    pattern: "**/*.log",
+    name: {
+      regex: {
+        pattern: "^may-20..",
+        flags: "gi",
+      },
+      contain: ["debug", "warn", "error"]
+    },
+    size: {
+      min: 1000,
+      max: 3000000,
+    },
+  },
+}
+
+const deleted = cyfs(order)
+/*
+[ 'path/to/May-2018_access.debug.log',
+  'path/to/May-2018_access.warn.log',
+  'path/to/May-2018_access.error.log' ]
+*/
+```
 
 ### fetch
 
