@@ -4,10 +4,10 @@
 ```js
 // show selected
 cyfs.select(order)
-// rename selected (filename only)
-cyfs.rename(order)
 // delete selected
 cyfs.delete(order)
+// rename selected (filename only)
+cyfs.rename(order)
 // copy selected and keep tree
 cyfs.fetch(order, { baseDir: "", destDir: "_dest" })
 // copy selected as you like (dirname can be changed)
