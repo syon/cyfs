@@ -95,17 +95,17 @@ module.exports = class Cyfs {
     return this.list
   }
 
-  delete() {
+  delete(options, isPreview) {
+    if (isPreview) return this.list
     this.list.forEach(fp => {
       rimraf.sync(fp)
     })
     return this.list
   }
 
-  injectTimestamp(targetSet) {
-    if (!this.order.replace.file.timestamp) return targetSet
+  static injectTimestamp(targetSet, timestamp) {
     const newTargetSet = targetSet
-    const { format: tsFmt, only } = this.order.replace.file.timestamp
+    const { format: tsFmt, only } = timestamp
     newTargetSet.list = targetSet.list.map(entry => {
       const { before, after } = entry
       if (!after) return entry
@@ -138,45 +138,53 @@ module.exports = class Cyfs {
     return renamer.replace(renamerOpts)
   }
 
-  dryRun() {
+  rename(options, isPreview) {
     let targetSet = this.renamePrepare()
-    targetSet = this.injectTimestamp(targetSet)
-    const result = renamer.dryRun(targetSet)
+    const { timestamp } = this.order.replace.file
+    if (timestamp) {
+      targetSet = Cyfs.injectTimestamp(targetSet, timestamp)
+    }
+    let result = {}
+    if (isPreview) {
+      result = renamer.dryRun(targetSet)
+    } else {
+      result = renamer.rename(targetSet)
+    }
     // TODO: Alert if contains error or warning
     return result
   }
 
-  rename() {
-    let targetSet = this.renamePrepare()
-    targetSet = this.injectTimestamp(targetSet)
-    const result = renamer.rename(targetSet)
-    return result
-  }
-
-  fetch(options) {
+  fetch(options, isPreview) {
     const opts = options || this.order.copy
     const BASE_DIR = opts.baseDir || ""
     const DEST_DIR = opts.destDir || "./_dest/"
     const cpxOpts = { preserve: true }
-    this.list.forEach(fp => {
+    const entries = this.list.map(fp => {
       const dn = path.dirname(fp)
+      const bn = path.basename(fp)
       let rp = dn.replace(BASE_DIR, "")
       if (path.isAbsolute(rp)) {
         rp = rp.replace(path.parse(rp).root, "")
       }
       const destDir = path.normalize(path.join(DEST_DIR, rp))
-      cpx.copySync(fp, destDir, cpxOpts)
+      return { src: fp, dest: path.join(destDir, bn) }
     })
-    return this.list
+    if (isPreview) return entries
+    entries.forEach(e => {
+      const destDir = path.dirname(e.dest)
+      cpx.copySync(e.src, destDir, cpxOpts)
+    })
+    return entries
   }
 
-  copy(options) {
+  copy(options, isPreview) {
     const { find, replace } = options
     const re = new RegExp(find)
     const entries = this.list.map(fp => {
       const dest = fp.replace(re, replace)
       return { src: fp, dest }
     })
+    if (isPreview) return entries
     entries.forEach(e => {
       const destDir = path.dirname(e.dest)
       shell.mkdir("-p", destDir)
@@ -185,8 +193,8 @@ module.exports = class Cyfs {
     return entries
   }
 
-  move(options) {
-    const { find, replace, preview } = options
+  move(options, isPreview) {
+    const { find, replace } = options
     if (!find || !replace) {
       const msg = "Invalid args: 'find' and 'replace' are required."
       throw new Error(msg)
@@ -196,7 +204,7 @@ module.exports = class Cyfs {
       const dest = fp.replace(re, replace)
       return { src: fp, dest }
     })
-    if (preview) return entries
+    if (isPreview) return entries
     entries.forEach(e => {
       const destDir = path.dirname(e.dest)
       shell.mkdir("-p", destDir)

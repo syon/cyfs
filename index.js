@@ -1,28 +1,28 @@
 const Cyfs = require("./cyfs")
 
 module.exports = {
-  select(order) {
+  select(order, options = {}) {
     const cyfs = new Cyfs(order)
-    return cyfs.select()
+    return cyfs.select(options)
   },
-  delete(order) {
+  delete(order, options = {}, isPreview = false) {
     const cyfs = new Cyfs(order)
-    return cyfs.delete()
+    return cyfs.delete(options, isPreview)
   },
-  rename(order) {
+  rename(order, options = {}, isPreview = false) {
     const cyfs = new Cyfs(order)
-    return cyfs.rename()
+    return cyfs.rename(options, isPreview)
   },
-  fetch(order, options = {}) {
+  fetch(order, options = {}, isPreview = false) {
     const cyfs = new Cyfs(order)
-    return cyfs.fetch(options)
+    return cyfs.fetch(options, isPreview)
   },
-  copy(order, options = {}) {
+  copy(order, options = {}, isPreview = false) {
     const cyfs = new Cyfs(order)
-    return cyfs.copy(options)
+    return cyfs.copy(options, isPreview)
   },
-  move(order, options = {}) {
+  move(order, options = {}, isPreview = false) {
     const cyfs = new Cyfs(order)
-    return cyfs.move(options)
+    return cyfs.move(options, isPreview)
   },
 }
