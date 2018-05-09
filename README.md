@@ -1,17 +1,92 @@
 # cyfs
-🌀 cyfs :: Cyclone in file system. Recipe based file handling module.
+
+🌀 cyfs :: Cyclone in file system. Recipe based file handling Node.js module.
+
+## overview
+
+<dl>
+  <dt>select</dt>
+  <dd>get selected files</dd>
+  <dt>delete</dt>
+  <dd>delete selected files</dd>
+  <dt>rename</dt>
+  <dd>rename selected files (filename only)</dd>
+  <dt>fetch</dt>
+  <dd>copy selected files and keep the tree</dd>
+  <dt>copy</dt>
+  <dd>copy selected files as you like (dirname can be changed)</dd>
+  <dt>move</dt>
+  <dd>move selected files as you like (dirname can be changed)</dd>
+</dl>
+
+## install
+
+```bash
+$ npm install https://github.com/syon/cyfs
+```
+
+## usage
+
+### select
 
 ```js
-// show selected
-cyfs.select(order)
-// delete selected
-cyfs.delete(order)
-// rename selected (filename only)
-cyfs.rename(order)
-// copy selected and keep tree
-cyfs.fetch(order, { baseDir: "", destDir: "_dest" })
-// copy selected as you like (dirname can be changed)
-cyfs.copy(order, { find: "", replace: "" })
-// move selected as you like (dirname can be changed)
-cyfs.move(order, { find: "", replace: "" })
+const cyfs = require("cyfs")
+
+const order = {
+  select: {
+    pattern: "Photos Library.photoslibrary/Masters/**/*.mov",
+    options: {
+      cwd: "/Users/syon/Pictures",
+      nocase: true,
+    },
+  },
+}
+
+const selected = cyfs(order)
+/*
+[ 'Photos Library.photoslibrary/Masters/2018/02/02/20180201-120000/IMG_0022.MOV',
+  'Photos Library.photoslibrary/Masters/2018/03/03/20180301-120000/IMG_0103.MOV',
+  'Photos Library.photoslibrary/Masters/2018/04/04/20180401-120000/IMG_0144.MOV',
+  'Photos Library.photoslibrary/Masters/2018/05/05/20180501-120000/IMG_0205.MOV',
+  'Photos Library.photoslibrary/Masters/2018/06/06/20180601-120000/IMG_0360.MOV' ]
+*/
+```
+
+* https://github.com/isaacs/node-glob#options
+
+### fetch
+
+```js
+const cyfs = require("cyfs")
+
+const order = {
+  select: {
+    pattern: "Photos Library.photoslibrary/Masters/2018/**/*.mov",
+    options: {
+      cwd: "/Users/syon/Pictures",
+      nocase: true,
+    },
+  },
+  action: {
+    do: "fetch",
+    options: {
+      baseDir: "Photos Library.photoslibrary/Masters/2018",
+      destDir: "2018-movies",
+    },
+  },
+}
+
+const fetched = cyfs(order)
+/*
+[ { src: 'Photos Library.photoslibrary/Masters/2018/02/02/20180201-120000/IMG_0022.MOV',
+    dest: '2018-movies/02/02/20180201-120000/IMG_0022.MOV' },
+  { src: 'Photos Library.photoslibrary/Masters/2018/03/03/20180301-120000/IMG_0103.MOV',
+    dest: '2018-movies/03/03/20180301-120000/IMG_0103.MOV' },
+  { src: 'Photos Library.photoslibrary/Masters/2018/04/04/20180401-120000/IMG_0144.MOV',
+    dest: '2018-movies/04/04/20180401-120000/IMG_0144.MOV' },
+  { src: 'Photos Library.photoslibrary/Masters/2018/05/05/20180501-120000/IMG_0205.MOV',
+    dest: '2018-movies/05/05/20180501-120000/IMG_0205.MOV' },
+  { src: 'Photos Library.photoslibrary/Masters/2018/06/06/20180601-120000/IMG_0360.MOV',
+    dest: '2018-movies/06/06/20180601-120000/IMG_0360.MOV' } ]
+*/
 ```
