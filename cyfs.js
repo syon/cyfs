@@ -12,7 +12,7 @@ module.exports = class Cyfs {
     if (!query || !query.pattern) {
       throw new Error()
     }
-    this.select(query)
+    this.listing(query)
   }
 
   static getStat(filepath, statProp) {
@@ -49,7 +49,11 @@ module.exports = class Cyfs {
     }
   }
 
-  select(query) {
+  select() {
+    return this.list
+  }
+
+  listing(query) {
     const q = query
     this.list = glob.sync(q.pattern, q.options)
     if (q.name) {
