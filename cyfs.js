@@ -1,120 +1,22 @@
 const fs = require("fs")
 const path = require("path")
-const glob = require("glob")
 const moment = require("moment")
 const rimraf = require("rimraf")
 const renamer = require("renamer")
 const cpx = require("cpx")
 const shell = require("shelljs")
-const junk = require("junk")
+
+const listing = require("./lib/listing")
 
 module.exports = class Cyfs {
   constructor(query) {
     if (!query || !query.pattern) {
       throw new Error()
     }
-    this.listing(query)
-  }
-
-  static getStat(filepath, statProp) {
-    const stat = fs.statSync(filepath)
-    switch (statProp) {
-      case "atime":
-        return stat.atime
-      case "mtime":
-        return stat.mtime
-      case "ctime":
-        return stat.ctime
-      case "birthtime":
-        return stat.birthtime
-      default:
-        return ""
-    }
-  }
-
-  filterByStatDate(dateAfterBefore, statProp) {
-    if (!dateAfterBefore) return
-    if (dateAfterBefore.after) {
-      const { after } = dateAfterBefore
-      this.list = this.list.filter(f => {
-        const time = Cyfs.getStat(f, statProp)
-        return moment(time).isSameOrAfter(after, "day")
-      })
-    }
-    if (dateAfterBefore.before) {
-      const { before } = dateAfterBefore
-      this.list = this.list.filter(f => {
-        const time = Cyfs.getStat(f, statProp)
-        return moment(time).isSameOrBefore(before, "day")
-      })
-    }
+    this.list = listing(query)
   }
 
   select() {
-    return this.list
-  }
-
-  listing(query) {
-    const q = query
-    this.list = glob.sync(q.pattern, q.options)
-    if (q.include) {
-      if (q.include.preset) {
-        switch (q.include.preset) {
-          case "junk":
-            this.list = this.list.filter(fp => junk.is(path.basename(fp)))
-            break
-          case "emptydir":
-            this.list = this.list.filter(fp => {
-              if (fs.statSync(fp).isDirectory()) {
-                return fs.readdirSync(fp).length === 0
-              }
-              return false
-            })
-            break
-          default:
-            throw new Error()
-        }
-      }
-    }
-    if (q.name) {
-      if (q.name.regex) {
-        if (q.name.regex.pattern) {
-          this.list = this.list.filter(f => {
-            const filename = path.basename(f)
-            const ptn = q.name.regex.pattern
-            const flg = q.name.regex.flags || ""
-            const regex = new RegExp(ptn, flg)
-            return filename.match(regex)
-          })
-        }
-      }
-      if (q.name.contain) {
-        this.list = this.list.filter(fp => {
-          const f = path.basename(fp)
-          return q.name.contain.some(c => f.indexOf(c) !== -1)
-        })
-      }
-    }
-    if (q.size) {
-      if (q.size.min) {
-        this.list = this.list.filter(f => {
-          const stat = fs.statSync(f)
-          return stat.size >= q.size.min
-        })
-      }
-      if (q.size.max) {
-        this.list = this.list.filter(f => {
-          const stat = fs.statSync(f)
-          return stat.size <= q.size.max
-        })
-      }
-    }
-    if (q.date) {
-      this.filterByStatDate(q.date.access, "atime")
-      this.filterByStatDate(q.date.modify, "mtime")
-      this.filterByStatDate(q.date.change, "ctime")
-      this.filterByStatDate(q.date.birth, "birthtime")
-    }
     return this.list
   }
 
