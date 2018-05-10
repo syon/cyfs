@@ -1,4 +1,4 @@
-const Cyfs = require("./cyfs")
+const Cyfs = require("./lib/cyfs")
 
 module.exports = (order, options) => {
   const { select: query, action } = order
