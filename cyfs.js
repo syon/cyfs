@@ -63,6 +63,14 @@ module.exports = class Cyfs {
           case "junk":
             this.list = this.list.filter(fp => junk.is(path.basename(fp)))
             break
+          case "emptydir":
+            this.list = this.list.filter(fp => {
+              if (fs.statSync(fp).isDirectory()) {
+                return fs.readdirSync(fp).length === 0
+              }
+              return false
+            })
+            break
           default:
             throw new Error()
         }
