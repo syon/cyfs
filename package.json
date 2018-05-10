@@ -1,7 +1,7 @@
 {
   "name": "cyfs",
   "version": "0.0.0",
-  "description": "🌀 cyfs :: Cyclone in file system. Recipe based file handling module.",
+  "description": "?? cyfs :: Cyclone in file system. Recipe based file handling module.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +19,7 @@
   "dependencies": {
     "cpx": "^1.5.0",
     "glob": "^7.1.2",
+    "junk": "^2.1.0",
     "moment": "^2.22.1",
     "renamer": "^0.6.1",
     "rimraf": "^2.6.2",
