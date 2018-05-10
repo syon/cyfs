@@ -1,24 +1,24 @@
 const Cyfs = require("./cyfs")
 
-module.exports = (order, { preview }) => {
+module.exports = (order, options) => {
   const { select: query, action } = order
   const cyfs = new Cyfs(query)
   const method = action ? action.do : "select"
-  const options = action ? action.options : null
-  const isPreview = !!preview
+  const ao = action ? action.options : null
+  const isPreview = options ? !!options.preview : false
   switch (method) {
     case "select":
-      return cyfs.select(options, isPreview)
+      return cyfs.select(ao, isPreview)
     case "delete":
-      return cyfs.delete(options, isPreview)
+      return cyfs.delete(ao, isPreview)
     case "rename":
-      return cyfs.rename(options, isPreview)
+      return cyfs.rename(ao, isPreview)
     case "fetch":
-      return cyfs.fetch(options, isPreview)
+      return cyfs.fetch(ao, isPreview)
     case "copy":
-      return cyfs.copy(options, isPreview)
+      return cyfs.copy(ao, isPreview)
     case "move":
-      return cyfs.move(options, isPreview)
+      return cyfs.move(ao, isPreview)
     default:
       throw new Error()
   }

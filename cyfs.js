@@ -6,6 +6,7 @@ const rimraf = require("rimraf")
 const renamer = require("renamer")
 const cpx = require("cpx")
 const shell = require("shelljs")
+const junk = require("junk")
 
 module.exports = class Cyfs {
   constructor(query) {
@@ -56,6 +57,17 @@ module.exports = class Cyfs {
   listing(query) {
     const q = query
     this.list = glob.sync(q.pattern, q.options)
+    if (q.include) {
+      if (q.include.preset) {
+        switch (q.include.preset) {
+          case "junk":
+            this.list = this.list.filter(fp => junk.is(path.basename(fp)))
+            break
+          default:
+            throw new Error()
+        }
+      }
+    }
     if (q.name) {
       if (q.name.regex) {
         if (q.name.regex.pattern) {
@@ -157,10 +169,9 @@ module.exports = class Cyfs {
     return result
   }
 
-  fetch(options, isPreview) {
-    const opts = options || this.order.copy
-    const BASE_DIR = opts.baseDir || ""
-    const DEST_DIR = opts.destDir || "./_dest/"
+  fetch(options = {}, isPreview) {
+    const BASE_DIR = options.baseDir || ""
+    const DEST_DIR = options.destDir || "./_dest/"
     const cpxOpts = { preserve: true }
     const entries = this.list.map(fp => {
       const dn = path.dirname(fp)
@@ -170,7 +181,8 @@ module.exports = class Cyfs {
         rp = rp.replace(path.parse(rp).root, "")
       }
       const destDir = path.normalize(path.join(DEST_DIR, rp))
-      return { src: fp, dest: path.join(destDir, bn) }
+      const destFile = path.join(destDir, bn)
+      return { src: fp, dest: destFile.split(path.sep).join("/") }
     })
     if (isPreview) return entries
     entries.forEach(e => {
