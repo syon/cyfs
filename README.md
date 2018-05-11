@@ -194,7 +194,7 @@ const fetched = cyfs(order)
 */
 ```
 
-### copy
+### copy / move
 
 ```js
 const cyfs = require("cyfs")
@@ -204,7 +204,7 @@ const order = {
     pattern: "test/dataset/colors/*",
   },
   action: {
-    do: "copy",
+    do: "copy", // "move"
     options: {
       find: "dataset/colors/(.*).txt",
       replace: "market/$1-ocean.txt",
