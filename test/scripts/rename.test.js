@@ -7,7 +7,7 @@ test("rename regex", () => {
     pattern: "test/dataset/week/*.log"
   action:
     do: rename
-    options:
+    args:
       regex: true
       find: ^(F.*)
       replace: PREMIUM-$1

@@ -4,21 +4,21 @@ module.exports = (order, options) => {
   const { select: query, action } = order
   const cyfs = new Cyfs(query)
   const method = action ? action.do : "select"
-  const ao = action ? action.options : null
+  const args = action ? action.args : null
   const isPreview = options ? !!options.preview : false
   switch (method) {
     case "select":
-      return cyfs.select(ao, isPreview)
+      return cyfs.select(args, isPreview)
     case "delete":
-      return cyfs.delete(ao, isPreview)
+      return cyfs.delete(args, isPreview)
     case "rename":
-      return cyfs.rename(ao, isPreview)
+      return cyfs.rename(args, isPreview)
     case "fetch":
-      return cyfs.fetch(ao, isPreview)
+      return cyfs.fetch(args, isPreview)
     case "copy":
-      return cyfs.copy(ao, isPreview)
+      return cyfs.copy(args, isPreview)
     case "move":
-      return cyfs.move(ao, isPreview)
+      return cyfs.move(args, isPreview)
     default:
       throw new Error()
   }
