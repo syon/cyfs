@@ -71,7 +71,7 @@ const order = {
     },
     size: {
       min: 1000,
-      max: 3000000,
+      max: "3MB",
     },
   },
   action: {
