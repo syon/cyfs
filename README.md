@@ -89,6 +89,8 @@ const deleted = cyfs(order, { preview: true })
 
 ### rename
 
+#### RegEx
+
 ```js
 const order = {
   select: {
@@ -112,6 +114,46 @@ Results {
        before: 'test/dataset/week/Friday.log',
        after: 'test/dataset/week/PREMIUM-Friday.log',
        renamed: true },
+*/
+```
+
+#### Append timestamp (file modified time)
+
+- https://momentjs.com/docs/#/parsing/special-formats/
+
+```js
+const order = {
+  select: {
+    pattern: "test/dataset/holidays/*",
+  },
+  action: {
+    do: "rename",
+    options: {
+      timestamp: {
+        format: "YYYYMMDD - ",
+        /* Remove original filename */
+        // only: true
+      },
+    },
+  },
+}
+
+const result = cyfs(order, { preview: true })
+/*
+Results {
+  list:
+   [ { before: 'test/dataset/holidays/Children\'s Day.h',
+       after: 'test/dataset/holidays/20180505 - Children\'s Day.h',
+       renamed: true },
+     { before: 'test/dataset/holidays/Greenery Day.h',
+       after: 'test/dataset/holidays/20180504 - Greenery Day.h',
+       renamed: true },
+     { before: 'test/dataset/holidays/Marine Day.h',
+       after: 'test/dataset/holidays/20180716 - Marine Day.h',
+       renamed: true },
+     { before: 'test/dataset/holidays/Mountain Day.h',
+       after: 'test/dataset/holidays/20180811 - Mountain Day.h',
+       renamed: true } ],
 */
 ```
 
