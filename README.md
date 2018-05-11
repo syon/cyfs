@@ -151,3 +151,32 @@ const fetched = cyfs(order)
     dest: '2018-movies/06/06/20180601-120000/IMG_0360.MOV' } ]
 */
 ```
+
+### copy
+
+```js
+const cyfs = require("cyfs")
+
+const order = {
+  select: {
+    pattern: "test/dataset/colors/*",
+  },
+  action: {
+    do: "copy",
+    options: {
+      find: "dataset/colors/(.*).txt",
+      replace: "market/$1-ocean.txt",
+    },
+  },
+}
+
+const result = cyfs(order, { preview: true })
+/*
+[ { src: 'test/dataset/colors/blue.txt',
+    dest: 'test/market/blue-ocean.txt' },
+  { src: 'test/dataset/colors/green.txt',
+    dest: 'test/market/green-ocean.txt' },
+  { src: 'test/dataset/colors/red.txt',
+    dest: 'test/market/red-ocean.txt' } ]
+*/
+```
