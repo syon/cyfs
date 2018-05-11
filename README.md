@@ -1,6 +1,6 @@
 # cyfs
 
-🌀 cyfs :: Cyclone in file system. Recipe based file handling Node.js module.
+🌀 cyfs :: Cyclone in file system. Order based file handling Node.js module.
 
 ## overview
 
