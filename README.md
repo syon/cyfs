@@ -67,16 +67,19 @@ const order = {
         pattern: "^may-20..",
         flags: "gi",
       },
-      contain: ["debug", "warn", "error"]
+      contain: ["debug", "warn", "error"],
     },
     size: {
       min: 1000,
       max: 3000000,
     },
   },
+  action: {
+    do: "delete",
+  },
 }
 
-const deleted = cyfs(order)
+const deleted = cyfs(order, { preview: true })
 /*
 [ 'path/to/May-2018_access.debug.log',
   'path/to/May-2018_access.warn.log',
