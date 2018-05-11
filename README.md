@@ -98,7 +98,7 @@ const order = {
   },
   action: {
     do: "rename",
-    options: {
+    args: {
       regex: true,
       find: "^F",
       replace: "PREMIUM-F",
@@ -128,7 +128,7 @@ const order = {
   },
   action: {
     do: "rename",
-    options: {
+    args: {
       timestamp: {
         format: "YYYYMMDD - ",
         /* Remove original filename */
@@ -172,7 +172,7 @@ const order = {
   },
   action: {
     do: "fetch",
-    options: {
+    args: {
       baseDir: "Photos Library.photoslibrary/Masters/2018",
       destDir: "2018-movies",
     },
@@ -205,7 +205,7 @@ const order = {
   },
   action: {
     do: "copy", // "move"
-    options: {
+    args: {
       find: "dataset/colors/(.*).txt",
       replace: "market/$1-ocean.txt",
     },
