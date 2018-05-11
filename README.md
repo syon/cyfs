@@ -87,6 +87,34 @@ const deleted = cyfs(order, { preview: true })
 */
 ```
 
+### rename
+
+```js
+const order = {
+  select: {
+    pattern: "test/dataset/week/*.log",
+  },
+  action: {
+    do: "rename",
+    options: {
+      regex: true,
+      find: "^F",
+      replace: "PREMIUM-F",
+    },
+  },
+}
+
+const result = cyfs(order, { preview: true })
+/*
+Results {
+  list:
+   [ Result {
+       before: 'test/dataset/week/Friday.log',
+       after: 'test/dataset/week/PREMIUM-Friday.log',
+       renamed: true },
+*/
+```
+
 ### fetch
 
 ```js
