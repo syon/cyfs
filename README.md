@@ -22,7 +22,7 @@
 ## install
 
 ```bash
-$ npm install https://github.com/syon/cyfs
+$ npm install syon/cyfs
 ```
 
 ## usage
