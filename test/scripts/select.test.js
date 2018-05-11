@@ -2,6 +2,7 @@ const cyfs = require("../../")
 const yaml = require("js-yaml")
 const shell = require("shelljs")
 const rimraf = require("rimraf")
+const exec = require("child_process").execSync
 
 test("select name contain", () => {
   const order = yaml.safeLoad(`
@@ -48,6 +49,28 @@ test("select size min/max", () => {
   const expected = [
     "test/dataset/coffee/Grande.coffee",
     "test/dataset/coffee/Tall.coffee",
+  ]
+  expect(cyfs(order)).toEqual(expected)
+})
+
+test("select date before/after", () => {
+  // Run on Mac
+  exec('touch -mt 201805041259.59 "test/dataset/holidays/Greenery Day.h"')
+  exec('touch -mt 201805051259.59 "test/dataset/holidays/Children\'s Day.h"')
+  exec('touch -mt 201807161259.59 "test/dataset/holidays/Marine Day.h"')
+  exec('touch -mt 201808111259.59 "test/dataset/holidays/Mountain Day.h"')
+  const order = yaml.safeLoad(`
+  select:
+    pattern: "test/dataset/holidays/**/*"
+    include:
+      date:
+        modify:
+          after: "2018-05-05"
+          before: "2018-07-16"
+  `)
+  const expected = [
+    "test/dataset/holidays/Children's Day.h",
+    "test/dataset/holidays/Marine Day.h",
   ]
   expect(cyfs(order)).toEqual(expected)
 })
