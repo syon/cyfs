@@ -1,7 +1,6 @@
 const cyfs = require("../../")
 const yaml = require("js-yaml")
 const shell = require("shelljs")
-const rimraf = require("rimraf")
 const exec = require("child_process").execSync
 
 test("select name contain", () => {
@@ -36,8 +35,6 @@ test("select regex", () => {
 })
 
 test("select size min/max", () => {
-  rimraf.sync("test/dataset/blankdir")
-  shell.mkdir("test/dataset/blankdir")
   const order = yaml.safeLoad(`
   select:
     pattern: "test/dataset/**"
@@ -53,7 +50,7 @@ test("select size min/max", () => {
   expect(cyfs(order)).toEqual(expected)
 })
 
-test("select date before/after", () => {
+test("select date after/before", () => {
   // Run on Mac
   exec('touch -mt 201805041259.59 "test/dataset/holidays/Greenery Day.h"')
   exec('touch -mt 201805051259.59 "test/dataset/holidays/Children\'s Day.h"')
