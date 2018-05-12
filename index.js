@@ -1,11 +1,11 @@
 const Cyfs = require("./lib/cyfs")
 
-module.exports = (order, options) => {
+module.exports = (order, flags) => {
   const { select: query, action } = order
   const cyfs = new Cyfs(query)
   const method = action ? action.do : "select"
   const args = action ? action.args : null
-  const isPreview = options ? !!options.preview : false
+  const isPreview = flags ? !!flags.preview : false
   switch (method) {
     case "select":
       return cyfs.select(args, isPreview)
