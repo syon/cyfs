@@ -22,7 +22,7 @@
 ## install
 
 ```bash
-$ npm install syon/cyfs
+$ npm install cyfs
 ```
 
 ## usage
@@ -221,4 +221,49 @@ const result = cyfs(order, { preview: true })
   { src: 'test/dataset/colors/red.txt',
     dest: 'test/market/red-ocean.txt' } ]
 */
+```
+
+## order scheme
+
+```yaml
+select:
+  pattern: "path/of/glob/**"
+  include:
+    name:
+      regex:
+        pattern: string
+        flags: string
+      contain: Array<string>
+    size:
+      min: 1000,
+      max: "5MB",
+    date: # https://momentjs.com/docs/#/query/is-same-or-before/
+      access:
+        after: 2000-01-01
+        before: 2000-12-31
+      modify:
+        after: 2000-01-01
+        before: 2000-12-31
+      change:
+        after: 2000-01-01
+        before: 2000-12-31
+      birth:
+        after: 2000-01-01
+        before: 2000-12-31
+    datetime: # https://momentjs.com/docs/#/parsing/string/
+      access:
+        after: "2000-01-01 00:00:00.000"
+        before: "2000-12-31 23:59:59.999"
+      modify:
+        after: "2000-01-01 00:00:00.000"
+        before: "2000-12-31 23:59:59.999"
+      change:
+        after: "2000-01-01 00:00:00.000"
+        before: "2000-12-31 23:59:59.999"
+      birth:
+        after: "2000-01-01 00:00:00.000"
+        before: "2000-12-31 23:59:59.999"
+action:
+  do: select|delete|rename|fetch|copy|move
+  args: <object>
 ```
