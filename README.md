@@ -204,17 +204,26 @@ test/market/red-ocean.txt
 
 ```yaml
 select:
+  # https://github.com/isaacs/node-glob#glob-primer
   pattern: "path/of/glob/**"
+  # https://github.com/isaacs/node-glob#options
+  options:
+    cwd: "/Users/syon/Pictures"
+    dot: true
+    nocase: true
   include:
     name:
       regex:
-        pattern: string
-        flags: string
-      contain: Array<string>
+        pattern: "(JPG|PNG)$"
+        flags: gi
+      contain:
+        - IMG
+        - DSC
     size:
       min: 1000,
       max: "5MB",
-    date: # https://momentjs.com/docs/#/query/is-same-or-before/
+    # https://momentjs.com/docs/#/query/is-same-or-before/
+    date:
       access:
         after: 2000-01-01
         before: 2000-12-31
@@ -227,7 +236,8 @@ select:
       birth:
         after: 2000-01-01
         before: 2000-12-31
-    datetime: # https://momentjs.com/docs/#/parsing/string/
+    # https://momentjs.com/docs/#/parsing/string/
+    datetime:
       access:
         after: "2000-01-01 00:00:00.000"
         before: "2000-12-31 23:59:59.999"
