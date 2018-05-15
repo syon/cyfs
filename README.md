@@ -174,6 +174,41 @@ const fetched = cyfs(order)
 */
 ```
 
+### chronicle
+
+```js
+const cyfs = require("cyfs")
+
+const order = {
+  select: {
+    pattern: "Photos Library.photoslibrary/Masters/2018/**/*.mov",
+    options: {
+      cwd: "/Users/syon/Pictures",
+      nocase: true,
+    },
+  },
+  action: {
+    do: "chronicle",
+    args: {
+      // remove: true
+      baseDir: "Photos Library.photoslibrary/Masters/2018",
+      destDir: "2018-movies",
+      // https://momentjs.com/docs/#/parsing/string/
+      destFormat: "YYYY/MM/DD",
+    },
+  },
+}
+
+const fetched = cyfs(order)
+/*
+2018-movies/2018/02/01/IMG_0022.MOV
+2018-movies/2018/03/01/IMG_0103.MOV
+2018-movies/2018/04/01/IMG_0144.MOV
+2018-movies/2018/05/01/IMG_0205.MOV
+2018-movies/2018/06/01/IMG_0360.MOV
+*/
+```
+
 ### copy / move
 
 ```js
@@ -251,6 +286,6 @@ select:
         after: "2000-01-01 00:00:00.000"
         before: "2000-12-31 23:59:59.999"
 action:
-  do: select|delete|rename|fetch|copy|move
+  do: select|delete|rename|fetch|chronicle|copy|move
   args: <object>
 ```

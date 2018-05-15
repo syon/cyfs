@@ -15,6 +15,8 @@ module.exports = (order, flags) => {
       return cyfs.rename(args, isPreview)
     case "fetch":
       return cyfs.fetch(args, isPreview)
+    case "chronicle":
+      return cyfs.chronicle(args, isPreview)
     case "copy":
       return cyfs.copy(args, isPreview)
     case "move":
