@@ -190,7 +190,6 @@ const order = {
   action: {
     do: "chronicle",
     args: {
-      // remove: true
       baseDir: "Photos Library.photoslibrary/Masters/2018",
       destDir: "2018-movies",
       // https://momentjs.com/docs/#/parsing/string/
