@@ -6,6 +6,7 @@ module.exports = (order, flags) => {
   const method = action ? action.do : "select"
   const args = action ? action.args : null
   const isPreview = flags ? !!flags.preview : false
+  const isForce = flags ? !!flags.force : false
   switch (method) {
     case "select":
       return cyfs.select(args, isPreview)
@@ -16,7 +17,7 @@ module.exports = (order, flags) => {
     case "fetch":
       return cyfs.fetch(args, isPreview)
     case "chronicle":
-      return cyfs.chronicle(args, isPreview)
+      return cyfs.chronicle(args, isPreview, isForce)
     case "copy":
       return cyfs.copy(args, isPreview)
     case "move":
