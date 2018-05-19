@@ -12,14 +12,7 @@ test("rename regex", () => {
       find: ^(F.*)
       replace: PREMIUM-$1
   `)
-  const expected = [
-    {
-      before: "test/dataset/week/Friday.log",
-      after: "test/dataset/week/PREMIUM-Friday.log",
-      renamed: true,
-    },
-  ]
+  const expected = ["test/dataset/week/PREMIUM-Friday.log"]
   const result = cyfs(order, { preview: true })
-  const renamed = result.list.filter(o => o.renamed)
-  expect(renamed).toEqual(expected)
+  expect(result).toEqual(expected)
 })

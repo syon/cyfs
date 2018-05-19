@@ -66,6 +66,7 @@ test("select date after/before", () => {
           before: "2018-07-16"
   `)
   const expected = [
+    "test/dataset/holidays/.DS_Store",
     "test/dataset/holidays/Children's Day.h",
     "test/dataset/holidays/Marine Day.h",
   ]
