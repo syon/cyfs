@@ -4,6 +4,7 @@
   "description": "🌀 cyfs :: Cyclone in file system. Order based file handling Node.js module.",
   "main": "index.js",
   "scripts": {
+    "try": "node test/try.js",
     "test": "jest"
   },
   "repository": {
