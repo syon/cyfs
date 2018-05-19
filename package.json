@@ -21,10 +21,12 @@
   "dependencies": {
     "cpx": "^1.5.0",
     "debug": "^3.1.0",
+    "exif": "^0.6.0",
     "glob": "^7.1.2",
     "junk": "^2.1.0",
     "moment": "^2.22.1",
     "numeral": "^2.0.6",
+    "p-iteration": "^1.1.7",
     "renamer": "^0.6.1",
     "rimraf": "^2.6.2",
     "shelljs": "^0.8.2"
