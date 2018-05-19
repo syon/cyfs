@@ -1,7 +1,7 @@
 const cyfs = require("../../")
 const yaml = require("js-yaml")
 
-test("rename regex", () => {
+test("rename regex", async () => {
   const order = yaml.safeLoad(`
   select:
     pattern: "test/dataset/week/*.log"
@@ -13,6 +13,6 @@ test("rename regex", () => {
       replace: PREMIUM-$1
   `)
   const expected = ["test/dataset/week/PREMIUM-Friday.log"]
-  const result = cyfs(order, { preview: true })
+  const result = await cyfs(order, { preview: true })
   expect(result).toEqual(expected)
 })
