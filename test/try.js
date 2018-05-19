@@ -9,6 +9,10 @@ select:
     #   regex:
     #     pattern: "(JPG|png)$"
     #     flags: gi
+    date:
+      exif:
+        after: 2018-05-19
+        before: 2018-05-20
 action:
   do: select
   args:
@@ -17,6 +21,7 @@ action:
 /* eslint-disable */
 console.log(doc)
 console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-const result = cyfs(doc, { preview: false, force: false })
-console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-console.log(result)
+cyfs(doc, { preview: false, force: false }).then(res => {
+  console.log(res)
+  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+})
