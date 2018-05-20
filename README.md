@@ -255,25 +255,14 @@ select:
     size:
       min: 1000,
       max: "5MB",
-    # https://momentjs.com/docs/#/query/is-same-or-before/
     date:
       mode: modify
       after: 2000-01-01
       before: 2000-12-31
-    # https://momentjs.com/docs/#/parsing/string/
     datetime:
-      access:
-        after: "2000-01-01 00:00:00.000"
-        before: "2000-12-31 23:59:59.999"
-      modify:
-        after: "2000-01-01 00:00:00.000"
-        before: "2000-12-31 23:59:59.999"
-      change:
-        after: "2000-01-01 00:00:00.000"
-        before: "2000-12-31 23:59:59.999"
-      birth:
-        after: "2000-01-01 00:00:00.000"
-        before: "2000-12-31 23:59:59.999"
+      mode: modify
+      after: "2000-01-01 00:00:00.000"
+      before: "2000-12-31 23:59:59.999"
 action:
   do: select|delete|rename|fetch|chronicle|copy|move
   args: <object>
@@ -289,3 +278,14 @@ https://momentjs.com/docs/#/query/is-same-or-before/
   - `YYYY-MM-DD`
 - __before__
   - `YYYY-MM-DD`
+
+### select.include.datetime
+
+https://momentjs.com/docs/#/parsing/string/
+
+- __mode__:
+  - `exif` | `access` | `modify` | `change` | `birth`
+- __after__
+  - `YYYY-MM-DD HH:mm:ss.SSS`
+- __before__
+  - `YYYY-MM-DD HH:mm:ss.SSS`
