@@ -13,6 +13,8 @@
   <dd>rename selected files (filename only)</dd>
   <dt>fetch</dt>
   <dd>copy selected files and keep the tree</dd>
+  <dt>chronicle</dt>
+  <dd>restructure files to timestamp-based path</dd>
   <dt>copy</dt>
   <dd>copy selected files as you like (dirname can be changed)</dd>
   <dt>move</dt>
@@ -39,7 +41,6 @@ const order = {
     pattern: "Photos Library.photoslibrary/Masters/**/*.mov",
     options: {
       cwd: "/Users/syon/Pictures",
-      nocase: true,
     },
   },
 }
@@ -152,7 +153,6 @@ const order = {
     pattern: "Photos Library.photoslibrary/Masters/2018/**/*.mov",
     options: {
       cwd: "/Users/syon/Pictures",
-      nocase: true,
     },
   },
   action: {
@@ -184,7 +184,6 @@ const order = {
     pattern: "Photos Library.photoslibrary/Masters/2018/**/*.mov",
     options: {
       cwd: "/Users/syon/Pictures",
-      nocase: true,
     },
   },
   action: {
@@ -258,18 +257,9 @@ select:
       max: "5MB",
     # https://momentjs.com/docs/#/query/is-same-or-before/
     date:
-      access:
-        after: 2000-01-01
-        before: 2000-12-31
-      modify:
-        after: 2000-01-01
-        before: 2000-12-31
-      change:
-        after: 2000-01-01
-        before: 2000-12-31
-      birth:
-        after: 2000-01-01
-        before: 2000-12-31
+      mode: modify
+      after: 2000-01-01
+      before: 2000-12-31
     # https://momentjs.com/docs/#/parsing/string/
     datetime:
       access:
@@ -288,3 +278,14 @@ action:
   do: select|delete|rename|fetch|chronicle|copy|move
   args: <object>
 ```
+
+### select.include.date
+
+https://momentjs.com/docs/#/query/is-same-or-before/
+
+- __mode__:
+  - `exif` | `access` | `modify` | `change` | `birth`
+- __after__
+  - `YYYY-MM-DD`
+- __before__
+  - `YYYY-MM-DD`
