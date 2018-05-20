@@ -3,19 +3,12 @@ const cyfs = require("..")
 
 const doc = yaml.safeLoad(`
 select:
-  pattern: "/Users/syon/Downloads/**"
+  pattern: "test/dataset/photos/**"
   include:
-    # name:
-    #   regex:
-    #     pattern: "(JPG|png)$"
-    #     flags: gi
     date:
-      exif:
-        after: 2018-05-19
-        before: 2018-05-20
-action:
-  do: select
-  args:
+      mode: exif
+      after: "2013-01-04"
+      before: "2013-01-06"
 `)
 
 /* eslint-disable */
