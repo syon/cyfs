@@ -21,7 +21,7 @@ action:
 /* eslint-disable */
 console.log(doc)
 console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-cyfs(doc, { preview: false, force: false }).then(res => {
+cyfs(doc, { preview: true, force: false }).then(res => {
   console.log(res)
   console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 })
