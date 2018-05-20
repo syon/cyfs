@@ -61,9 +61,9 @@ test("select date after/before", async () => {
     pattern: "test/dataset/holidays/**/*"
     include:
       date:
-        modify:
-          after: "2018-05-05"
-          before: "2018-07-16"
+        mode: modify
+        after: "2018-05-05"
+        before: "2018-07-16"
   `)
   const expected = [
     "test/dataset/holidays/.DS_Store",
