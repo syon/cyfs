@@ -1,9 +1,9 @@
 const Cyfs = require("./lib/cyfs")
 
 module.exports = async (order, flags) => {
-  const { select: query, action } = order
+  const { action } = order
   const cyfs = new Cyfs()
-  await cyfs.init(query)
+  await cyfs.init(order)
   const method = action ? action.do : "select"
   const args = action ? action.args : null
   const isPreview = flags ? !!flags.preview : false
