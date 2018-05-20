@@ -73,15 +73,52 @@ test("select date after/before", async () => {
   expect(await cyfs(order)).toEqual(expected)
 })
 
+test("select datetime after/before", async () => {
+  // Run on Mac
+  exec('touch -mt 201805041259.59 "test/dataset/holidays/Greenery Day.h"')
+  exec('touch -mt 201805051259.59 "test/dataset/holidays/Children\'s Day.h"')
+  exec('touch -mt 201807161259.59 "test/dataset/holidays/Marine Day.h"')
+  exec('touch -mt 201808111259.59 "test/dataset/holidays/Mountain Day.h"')
+  const order = yaml.safeLoad(`
+  select:
+    pattern: "test/dataset/holidays/**"
+    include:
+      datetime:
+        mode: modify
+        after: "2018-05-05 00:00:00.000"
+        before: "2018-07-16 23:59:59.999"
+  `)
+  const expected = [
+    "test/dataset/holidays/.DS_Store",
+    "test/dataset/holidays/Children's Day.h",
+    "test/dataset/holidays/Marine Day.h",
+  ]
+  expect(await cyfs(order)).toEqual(expected)
+})
+
 test("select date after/before exif", async () => {
   const order = yaml.safeLoad(`
   select:
-    pattern: "test/dataset/photos/**/*"
+    pattern: "test/dataset/photos/**"
     include:
       date:
-        exif:
-          after: "2013-01-04"
-          before: "2013-01-06"
+        mode: exif
+        after: "2013-01-04"
+        before: "2013-01-06"
+  `)
+  const expected = ["test/dataset/photos/drip.jpg"]
+  expect(await cyfs(order)).toEqual(expected)
+})
+
+test("select datetime after/before exif", async () => {
+  const order = yaml.safeLoad(`
+  select:
+    pattern: "test/dataset/photos/**"
+    include:
+      datetime:
+        mode: exif
+        after: "2013-01-05 11:21:57.000"
+        before: "2013-01-05 11:21:57.000"
   `)
   const expected = ["test/dataset/photos/drip.jpg"]
   expect(await cyfs(order)).toEqual(expected)
