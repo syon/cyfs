@@ -7,6 +7,8 @@
 <dl>
   <dt>select</dt>
   <dd>get selected files</dd>
+  <dt>report</dt>
+  <dd>output a report file that contains selected files info</dd>
   <dt>delete</dt>
   <dd>delete selected files</dd>
   <dt>rename</dt>
@@ -31,8 +33,6 @@ $ npm install cyfs
 
 ### select
 
-* https://github.com/isaacs/node-glob#options
-
 ```js
 const cyfs = require("cyfs")
 
@@ -54,6 +54,68 @@ Photos Library.photoslibrary/Masters/2018/05/05/20180501-120000/IMG_0205.MOV
 Photos Library.photoslibrary/Masters/2018/06/06/20180601-120000/IMG_0360.MOV
 */
 ```
+
+### report
+
+```js
+const cyfs = require("cyfs")
+
+const order = {
+  select: {
+    pattern: "test/dataset/photos/**/*.jpg",
+  },
+  action: {
+    do: "report",
+  },
+}
+
+const result = cyfs(order, { preview: true })
+```
+
+<details>
+  <summary>Result</summary>
+
+```js
+[ { dir: 'test/dataset/photos',
+    name: 'tg2_drip.jpg',
+    type: 'F',
+    byte: 10913,
+    access_time: '2018-05-27T01:23',
+    modiry_time: '2018-05-20T12:59',
+    change_time: '2018-05-27T01:22',
+    birth_time: '2018-05-20T03:30',
+    exif_date: '2013-01-05T11:21' },
+  { dir: 'test/dataset/photos',
+    name: 'tg2_pink.jpg',
+    type: 'F',
+    byte: 14439,
+    access_time: '2018-05-27T01:23',
+    modiry_time: '2018-05-27T01:10',
+    change_time: '2018-05-27T01:12',
+    birth_time: '2018-05-27T01:10',
+    exif_date: '2013-01-05T11:19' },
+  { dir: 'test/dataset/photos',
+    name: 'tg2_red.jpg',
+    type: 'F',
+    byte: 19348,
+    access_time: '2018-05-27T01:23',
+    modiry_time: '2018-05-27T01:10',
+    change_time: '2018-05-27T01:12',
+    birth_time: '2018-05-27T01:10',
+    exif_date: '2013-03-09T11:42' } ]
+```
+</details>
+
+<details>
+  <summary>report.tsv</summary>
+
+```txt
+dir	name	type	byte	access_time	modiry_time	change_time	birth_time	exif_date
+test/dataset/photos	tg2_drip.jpg	F	10913	2018-05-27T01:23	2018-05-20T12:59	2018-05-27T01:22	2018-05-20T03:30	2013-01-05T11:21
+test/dataset/photos	tg2_pink.jpg	F	14439	2018-05-27T01:23	2018-05-27T01:10	2018-05-27T01:12	2018-05-27T01:10	2013-01-05T11:19
+test/dataset/photos	tg2_red.jpg	F	19348	2018-05-27T01:23	2018-05-27T01:10	2018-05-27T01:12	2018-05-27T01:10	2013-03-09T11:42
+```
+</details>
 
 ### delete
 
