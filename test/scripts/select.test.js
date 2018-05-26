@@ -106,7 +106,10 @@ test("select date after/before exif", async () => {
         after: "2013-01-04"
         before: "2013-01-06"
   `)
-  const expected = ["test/dataset/photos/drip.jpg"]
+  const expected = [
+    "test/dataset/photos/tg2_drip.jpg",
+    "test/dataset/photos/tg2_pink.jpg",
+  ]
   expect(await cyfs(order)).toEqual(expected)
 })
 
@@ -120,7 +123,7 @@ test("select datetime after/before exif", async () => {
         after: "2013-01-05 11:21:57.000"
         before: "2013-01-05 11:21:57.000"
   `)
-  const expected = ["test/dataset/photos/drip.jpg"]
+  const expected = ["test/dataset/photos/tg2_drip.jpg"]
   expect(await cyfs(order)).toEqual(expected)
 })
 
