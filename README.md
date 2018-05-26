@@ -237,12 +237,11 @@ test/market/red-ocean.txt
 
 ```yaml
 select:
-  # https://github.com/isaacs/node-glob#glob-primer
   pattern: "path/of/glob/**"
-  # https://github.com/isaacs/node-glob#options
   options:
     cwd: "/Users/syon/Pictures"
     dot: true
+    nodir: true
     nocase: true
   include:
     name:
@@ -267,6 +266,19 @@ action:
   do: select|delete|rename|fetch|chronicle|copy|move
   args: <object>
 ```
+
+### select.pattern
+
+https://github.com/isaacs/node-glob#glob-primer
+
+### select.options
+
+https://github.com/isaacs/node-glob#options
+
+- (default)
+  - __dot__: `true`
+  - __nodir__: `true`
+  - __nocase__: `true`
 
 ### select.include.date
 
