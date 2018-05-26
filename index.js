@@ -5,12 +5,14 @@ module.exports = async (order, flags) => {
   const cyfs = new Cyfs()
   await cyfs.init(order)
   const method = action ? action.do : "select"
-  const args = action ? action.args : null
+  const args = action ? action.args || {} : null
   const isPreview = flags ? !!flags.preview : false
   const isForce = flags ? !!flags.force : false
   switch (method) {
     case "select":
       return cyfs.select(args, isPreview)
+    case "report":
+      return cyfs.report(args, isPreview)
     case "delete":
       return cyfs.delete(args, isPreview)
     case "rename":
