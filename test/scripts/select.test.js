@@ -66,7 +66,6 @@ test("select date after/before", async () => {
         before: "2018-07-16"
   `)
   const expected = [
-    "test/dataset/holidays/.DS_Store",
     "test/dataset/holidays/Children's Day.h",
     "test/dataset/holidays/Marine Day.h",
   ]
@@ -89,7 +88,6 @@ test("select datetime after/before", async () => {
         before: "2018-07-16 23:59:59.999"
   `)
   const expected = [
-    "test/dataset/holidays/.DS_Store",
     "test/dataset/holidays/Children's Day.h",
     "test/dataset/holidays/Marine Day.h",
   ]

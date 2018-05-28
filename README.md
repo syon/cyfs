@@ -338,7 +338,6 @@ https://github.com/isaacs/node-glob#glob-primer
 https://github.com/isaacs/node-glob#options
 
 - (default)
-  - __dot__: `true`
   - __nodir__: `true`
   - __nocase__: `true`
 
