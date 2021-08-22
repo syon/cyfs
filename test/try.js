@@ -1,11 +1,11 @@
-const debug = require("debug")
-const yaml = require("js-yaml") // eslint-disable-line
-const cyfs = require("..")
+import debug from "debug"
+import yaml from "js-yaml" // eslint-disable-line
+import cyfs from "../index.js"
 
 const vw = debug("cyfs:view")
 debug.enable("cyfs:*")
 
-const doc = yaml.safeLoad(`
+const doc = yaml.load(`
 select:
   pattern: "/Users/syon/Downloads/20180818WK/**/*.*"
   include:
@@ -28,6 +28,6 @@ vw(doc)
 ;(async () => {
   vw(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
   const res = await cyfs(doc, { preview: 1, force: false })
-  res.forEach(fp => vw(fp))
+  res.forEach((fp) => vw(fp))
   vw("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 })()

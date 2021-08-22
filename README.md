@@ -34,7 +34,7 @@ $ npm install cyfs
 ### select
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -58,7 +58,7 @@ Photos Library.photoslibrary/Masters/2018/06/06/20180601-120000/IMG_0360.MOV
 ### report
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -120,7 +120,7 @@ test/dataset/photos	tg2_red.jpg	F	19348	2018-05-27T01:23	2018-05-27T01:10	2018-0
 ### delete
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -208,7 +208,7 @@ test/dataset/holidays/20180811 - Mountain Day.h
 ### fetch
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -239,7 +239,7 @@ const fetched = cyfs(order)
 ### chronicle
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -272,7 +272,7 @@ const fetched = cyfs(order)
 ### copy / move
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {

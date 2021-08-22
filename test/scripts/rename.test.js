@@ -1,8 +1,8 @@
-const cyfs = require("../../")
-const yaml = require("js-yaml")
+import cyfs from "../../index.js"
+import yaml from "js-yaml"
 
 test("rename regex", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/week/*.log"
   action:
