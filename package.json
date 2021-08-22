@@ -47,9 +47,8 @@
     "prettier-eslint": "^13.0.0"
   },
   "prettier": {
-    "printWidth": 100,
     "semi": false,
-    "trailingComma": "es5"
+    "endOfLine": "auto"
   },
   "volta": {
     "node": "14.17.5",
