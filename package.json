@@ -3,6 +3,9 @@
   "version": "0.0.10",
   "description": "🌀 cyfs :: Cyclone in file system. Order based file handling Node.js module.",
   "main": "index.js",
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
+  },
   "scripts": {
     "try": "node test/try.js",
     "debug": "node --nolazy --inspect-brk=9229 test/try.js",
@@ -47,5 +50,9 @@
     "printWidth": 100,
     "semi": false,
     "trailingComma": "es5"
+  },
+  "volta": {
+    "node": "14.17.5",
+    "npm": "7.21.0"
   }
 }
