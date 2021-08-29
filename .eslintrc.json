@@ -5,12 +5,13 @@
     "sourceType": "module",
     "ecmaVersion": 2021
   },
-  "extends": ["prettier", "plugin:jest/recommended"],
-  "plugins": ["prettier", "jest"],
+  "extends": ["prettier", "plugin:import", "plugin:jest/recommended"],
+  "plugins": ["prettier", "import", "jest"],
   "env": {
     "node": true
   },
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-unused-vars": "warn"
   }
 }
