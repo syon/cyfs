@@ -1,0 +1,8 @@
+select:
+  pattern: "test/dataset/week/*.txt"
+action:
+  do: rename
+  args:
+    regex: true
+    find: ^(F.*)
+    replace: PREMIUM-$1
