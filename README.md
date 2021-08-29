@@ -177,7 +177,7 @@ test/dataset/week/PREMIUM-Friday.log
 
 #### Append timestamp (file modified time)
 
-- https://momentjs.com/docs/#/parsing/special-formats/
+- https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
 
 ```js
 const order = {
@@ -254,7 +254,7 @@ const order = {
       preferExif: true,
       baseDir: "Photos Library.photoslibrary/Masters/2018",
       destDir: "2018-movies",
-      // https://momentjs.com/docs/#/parsing/string/
+      // https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
       destFormat: "YYYY/MM/DD",
     },
   },
@@ -344,7 +344,7 @@ https://github.com/isaacs/node-glob#options
 
 ### select.include.date
 
-https://momentjs.com/docs/#/query/is-same-or-before/
+https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
 
 - __mode__:
   - `exif` | `access` | `modify` | `change` | `birth`
@@ -355,7 +355,7 @@ https://momentjs.com/docs/#/query/is-same-or-before/
 
 ### select.include.datetime
 
-https://momentjs.com/docs/#/parsing/string/
+https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
 
 - __mode__:
   - `exif` | `access` | `modify` | `change` | `birth`

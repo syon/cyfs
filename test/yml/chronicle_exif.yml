@@ -7,5 +7,5 @@ action:
   args:
     preferExif: true
     destDir: "_destExif"
-    # https://momentjs.com/docs/#/parsing/string/
+    # https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
     destFormat: "YYYY/MM/DD"
