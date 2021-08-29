@@ -1,0 +1,11 @@
+select:
+  pattern: "**/exif/**/*.jpg"
+  options:
+    cwd: "./test"
+action:
+  do: "chronicle"
+  args:
+    preferExif: true
+    destDir: "_destExif"
+    # https://momentjs.com/docs/#/parsing/string/
+    destFormat: "YYYY/MM/DD"
