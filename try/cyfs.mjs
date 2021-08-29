@@ -9,7 +9,8 @@ if (process.argv.length < 3) {
 }
 
 const ymlPath = process.argv[2]
-const preview = process.argv[3] || true
+const hasArgv3 = typeof process.argv[3] !== "undefined"
+const preview = hasArgv3 ? !!JSON.parse(process.argv[3]) : true
 
 console.log("--------------------------------------------------------")
 console.log({ ymlPath, preview })
