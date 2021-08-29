@@ -25,11 +25,11 @@
   "dependencies": {
     "cpx": "^1.5.0",
     "csv": "^5.5.0",
+    "dayjs": "^1.10.6",
     "debug": "^4.3.2",
     "exif": "^0.6.0",
     "glob": "^7.1.7",
     "junk": "^4.0.0",
-    "moment": "^2.29.1",
     "numeral": "^2.0.6",
     "p-iteration": "^1.1.8",
     "renamer": "^3.2.1",
