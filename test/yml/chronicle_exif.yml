@@ -1,0 +1,11 @@
+select:
+  pattern: "**/exif/**/*.jpg"
+  options:
+    cwd: "./test"
+action:
+  do: "chronicle"
+  args:
+    preferExif: true
+    destDir: "_destExif"
+    # https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
+    destFormat: "YYYY/MM/DD"

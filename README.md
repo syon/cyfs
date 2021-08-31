@@ -34,7 +34,7 @@ $ npm install cyfs
 ### select
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -58,7 +58,7 @@ Photos Library.photoslibrary/Masters/2018/06/06/20180601-120000/IMG_0360.MOV
 ### report
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -120,7 +120,7 @@ test/dataset/photos	tg2_red.jpg	F	19348	2018-05-27T01:23	2018-05-27T01:10	2018-0
 ### delete
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -177,7 +177,7 @@ test/dataset/week/PREMIUM-Friday.log
 
 #### Append timestamp (file modified time)
 
-- https://momentjs.com/docs/#/parsing/special-formats/
+- https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
 
 ```js
 const order = {
@@ -208,7 +208,7 @@ test/dataset/holidays/20180811 - Mountain Day.h
 ### fetch
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -239,7 +239,7 @@ const fetched = cyfs(order)
 ### chronicle
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -251,9 +251,10 @@ const order = {
   action: {
     do: "chronicle",
     args: {
+      preferExif: true,
       baseDir: "Photos Library.photoslibrary/Masters/2018",
       destDir: "2018-movies",
-      // https://momentjs.com/docs/#/parsing/string/
+      // https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
       destFormat: "YYYY/MM/DD",
     },
   },
@@ -272,7 +273,7 @@ const fetched = cyfs(order)
 ### copy / move
 
 ```js
-const cyfs = require("cyfs")
+import cyfs from "cyfs"
 
 const order = {
   select: {
@@ -343,7 +344,7 @@ https://github.com/isaacs/node-glob#options
 
 ### select.include.date
 
-https://momentjs.com/docs/#/query/is-same-or-before/
+https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
 
 - __mode__:
   - `exif` | `access` | `modify` | `change` | `birth`
@@ -354,7 +355,7 @@ https://momentjs.com/docs/#/query/is-same-or-before/
 
 ### select.include.datetime
 
-https://momentjs.com/docs/#/parsing/string/
+https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
 
 - __mode__:
   - `exif` | `access` | `modify` | `change` | `birth`

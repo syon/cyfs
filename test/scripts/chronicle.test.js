@@ -1,10 +1,10 @@
-const cyfs = require("../../")
-const yaml = require("js-yaml")
-const exec = require("child_process").execSync
+import cyfs from "../../index.js"
+import yaml from "js-yaml"
+import { execSync as exec } from "child_process"
 
 test("chronicle default", async () => {
   exec('touch -mt 201805201259.59 "test/dataset/photos/tg2_drip.jpg"')
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/photos/tg2_drip.jpg"
   action:
@@ -16,7 +16,7 @@ test("chronicle default", async () => {
 })
 
 test("chronicle exif", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/photos/tg2_drip.jpg"
   action:

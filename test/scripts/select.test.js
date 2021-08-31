@@ -1,10 +1,10 @@
-const cyfs = require("../../")
-const yaml = require("js-yaml")
-const shell = require("shelljs")
-const exec = require("child_process").execSync
+import cyfs from "../../"
+import yaml from "js-yaml"
+import shell from "shelljs"
+import { execSync as exec } from "child_process"
 
 test("select name contain", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/colors/**"
     include:
@@ -21,7 +21,7 @@ test("select name contain", async () => {
 })
 
 test("select regex", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/colors/**"
     include:
@@ -35,7 +35,7 @@ test("select regex", async () => {
 })
 
 test("select size min/max", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/**"
     include:
@@ -56,7 +56,7 @@ test("select date after/before", async () => {
   exec('touch -mt 201805051259.59 "test/dataset/holidays/Children\'s Day.h"')
   exec('touch -mt 201807161259.59 "test/dataset/holidays/Marine Day.h"')
   exec('touch -mt 201808111259.59 "test/dataset/holidays/Mountain Day.h"')
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/holidays/**/*"
     include:
@@ -78,7 +78,7 @@ test("select datetime after/before", async () => {
   exec('touch -mt 201805051259.59 "test/dataset/holidays/Children\'s Day.h"')
   exec('touch -mt 201807161259.59 "test/dataset/holidays/Marine Day.h"')
   exec('touch -mt 201808111259.59 "test/dataset/holidays/Mountain Day.h"')
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/holidays/**"
     include:
@@ -95,7 +95,7 @@ test("select datetime after/before", async () => {
 })
 
 test("select date after/before exif", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/photos/**"
     include:
@@ -112,7 +112,7 @@ test("select date after/before exif", async () => {
 })
 
 test("select datetime after/before exif", async () => {
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/photos/**"
     include:
@@ -127,7 +127,7 @@ test("select datetime after/before exif", async () => {
 
 test("select preset emptydir", async () => {
   shell.mkdir("-p", "test/dataset/blankdir")
-  const order = yaml.safeLoad(`
+  const order = yaml.load(`
   select:
     pattern: "test/dataset/**"
     include:

@@ -1,0 +1,6 @@
+select:
+  pattern: "test/dataset/**"
+  include:
+    size:
+      min: 350
+      max: 470

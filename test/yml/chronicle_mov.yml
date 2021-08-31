@@ -1,0 +1,11 @@
+select:
+  pattern: "Photos Library.photoslibrary/Masters/2018/**/*.mov"
+  options:
+    cwd: "/Users/syon/Pictures"
+action:
+  do: "chronicle"
+  args:
+    baseDir: "Photos Library.photoslibrary/Masters/2018"
+    destDir: "2018-movies"
+    # https://day.js.org/docs/en/parse/string-format#list-of-all-available-parsing-tokens
+    destFormat: "YYYY/MM/DD"

@@ -1,0 +1,7 @@
+select:
+  pattern: "test/dataset/holidays/**/*"
+  include:
+    date:
+      mode: modify
+      after: "2018-05-05"
+      before: "2018-07-16"
