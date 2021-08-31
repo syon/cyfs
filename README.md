@@ -29,6 +29,8 @@
 $ npm install cyfs
 ```
 
+⚓ Node v14.13+ with ECMAScript Modules (ESM)
+
 ## usage
 
 ### select
