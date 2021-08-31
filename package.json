@@ -34,7 +34,8 @@
     "p-iteration": "^1.1.8",
     "renamer": "^3.2.1",
     "rimraf": "^3.0.2",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "utimes": "^4.0.5"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.0",
