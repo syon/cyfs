@@ -45,7 +45,7 @@ const order = {
   },
 }
 
-const selected = cyfs(order)
+const selected = await cyfs(order)
 /*
 Photos Library.photoslibrary/Masters/2018/02/02/20180201-120000/IMG_0022.MOV
 Photos Library.photoslibrary/Masters/2018/03/03/20180301-120000/IMG_0103.MOV
@@ -69,7 +69,7 @@ const order = {
   },
 }
 
-const result = cyfs(order, { preview: true })
+const result = await cyfs(order, { preview: true })
 ```
 
 <details>
@@ -142,7 +142,7 @@ const order = {
   },
 }
 
-const deleted = cyfs(order, { preview: true })
+const deleted = await cyfs(order, { preview: true })
 /*
 path/to/May-2018_access.debug.log
 path/to/May-2018_access.warn.log
@@ -169,7 +169,7 @@ const order = {
   },
 }
 
-const result = cyfs(order, { preview: true })
+const result = await cyfs(order, { preview: true })
 /*
 test/dataset/week/PREMIUM-Friday.log
 */
@@ -196,7 +196,7 @@ const order = {
   },
 }
 
-const result = cyfs(order, { preview: true })
+const result = await cyfs(order, { preview: true })
 /*
 test/dataset/holidays/20180505 - Children\'s Day.h
 test/dataset/holidays/20180504 - Greenery Day.h
@@ -226,7 +226,7 @@ const order = {
   },
 }
 
-const fetched = cyfs(order)
+const fetched = await cyfs(order)
 /*
 2018-movies/02/02/20180201-120000/IMG_0022.MOV
 2018-movies/03/03/20180301-120000/IMG_0103.MOV
@@ -260,7 +260,7 @@ const order = {
   },
 }
 
-const fetched = cyfs(order)
+const fetched = await cyfs(order)
 /*
 2018-movies/2018/02/01/IMG_0022.MOV
 2018-movies/2018/03/01/IMG_0103.MOV
@@ -288,7 +288,7 @@ const order = {
   },
 }
 
-const result = cyfs(order, { preview: true })
+const result = await cyfs(order, { preview: true })
 /*
 test/market/blue-ocean.txt
 test/market/green-ocean.txt
