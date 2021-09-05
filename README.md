@@ -29,14 +29,14 @@
 $ npm install cyfs
 ```
 
-⚓ Node v14.13+ with ECMAScript Modules (ESM)
+⚓ Node v14.13+ (CommonJS)
 
 ## usage
 
 ### select
 
 ```js
-import cyfs from "cyfs"
+const cyfs = require("cyfs")
 
 const order = {
   select: {
@@ -60,7 +60,7 @@ Photos Library.photoslibrary/Masters/2018/06/06/20180601-120000/IMG_0360.MOV
 ### report
 
 ```js
-import cyfs from "cyfs"
+const cyfs = require("cyfs")
 
 const order = {
   select: {
@@ -122,7 +122,7 @@ test/dataset/photos	tg2_red.jpg	F	19348	2018-05-27T01:23	2018-05-27T01:10	2018-0
 ### delete
 
 ```js
-import cyfs from "cyfs"
+const cyfs = require("cyfs")
 
 const order = {
   select: {
@@ -210,7 +210,7 @@ test/dataset/holidays/20180811 - Mountain Day.h
 ### fetch
 
 ```js
-import cyfs from "cyfs"
+const cyfs = require("cyfs")
 
 const order = {
   select: {
@@ -241,7 +241,7 @@ const fetched = await cyfs(order)
 ### chronicle
 
 ```js
-import cyfs from "cyfs"
+const cyfs = require("cyfs")
 
 const order = {
   select: {
@@ -275,7 +275,7 @@ const fetched = await cyfs(order)
 ### copy / move
 
 ```js
-import cyfs from "cyfs"
+const cyfs = require("cyfs")
 
 const order = {
   select: {

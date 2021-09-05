@@ -1,6 +1,6 @@
-import Cyfs from "./lib/cyfs.js"
+const Cyfs = require("./lib/cyfs.js")
 
-export default async (order, flags) => {
+module.exports = async (order, flags) => {
   const { action } = order
   const cyfs = new Cyfs()
   await cyfs.init(order)

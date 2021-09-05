@@ -1,7 +1,7 @@
-import cyfs from "../../"
-import yaml from "js-yaml"
-import shell from "shelljs"
-import { execSync as exec } from "child_process"
+const cyfs = require("../../")
+const yaml = require("js-yaml")
+const shell = require("shelljs")
+const { execSync: exec } = require("child_process")
 
 test("select name contain", async () => {
   const order = yaml.load(`

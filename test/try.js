@@ -1,33 +1,31 @@
-import debug from "debug"
-import yaml from "js-yaml" // eslint-disable-line
-import cyfs from "../index.js"
+const fs = require("fs/promises")
+const yaml = require("js-yaml")
+const cyfs = require("../index.js")
 
-const vw = debug("cyfs:view")
-debug.enable("cyfs:*")
+if (process.argv.length < 3) {
+  console.error("invalid args.")
+  console.log("\n  $ node try\\cyfs.mjs path\\to\\sample.yml")
+  process.exit(1)
+}
 
-const doc = yaml.load(`
-select:
-  pattern: "/Users/syon/Downloads/20180818WK/**/*.*"
-  include:
-    date:
-      mode: modify
-      after: "2018-01-01"
-      before: "2018-12-31"
-action:
-  do: "rename"
-  args:
-    timestamp:
-      preferExif: true
-      format: "YYYY-MM-DDTHHmmss"
-      only: true
-    filesize: true
-`)
+const ymlName = process.argv[2]
+const ymlPath = `./test/yml/${ymlName}.yml`
+const hasArgv3 = typeof process.argv[3] !== "undefined"
+const preview = hasArgv3 ? !!JSON.parse(process.argv[3]) : true
 
-/* eslint-disable */
-vw(doc)
+console.log("--------------------------------------------------------")
+console.log({ ymlPath, preview })
+console.log("--------------------------------------------------------")
+
+/**
+ * $ node .\test\try.js select_size
+ */
 ;(async () => {
-  vw(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-  const res = await cyfs(doc, { preview: 1, force: false })
-  res.forEach((fp) => vw(fp))
-  vw("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-})()
+  const text = await fs.readFile(ymlPath, "utf-8")
+  const order = yaml.load(text)
+  const result = await cyfs(order, { preview })
+  console.log(result)
+})().catch((e) => {
+  // Deal with the fact the chain failed
+  console.warn(e)
+})

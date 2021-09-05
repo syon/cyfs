@@ -1,6 +1,6 @@
-import cyfs from "../../index.js"
-import yaml from "js-yaml"
-import { execSync as exec } from "child_process"
+const cyfs = require("../../index.js")
+const yaml = require("js-yaml")
+const { execSync: exec } = require("child_process")
 
 test("chronicle default", async () => {
   exec('touch -mt 201805201259.59 "test/dataset/photos/tg2_drip.jpg"')
