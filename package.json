@@ -1,6 +1,6 @@
 {
   "name": "cyfs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "🌀 cyfs :: Cyclone in file system. Order based file handling Node.js module.",
   "type": "commonjs",
   "exports": "./index.js",
