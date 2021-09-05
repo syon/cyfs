@@ -2,8 +2,8 @@
  * [Workaround]
  * Until jest ESM works
  */
-import { utimes } from "utimes"
-import mmnt from "../../lib/mmnt.js"
+const { utimes } = require("utimes")
+const mmnt = require("../../lib/mmnt.js")
 
 function changeTimestamp(path, datetime) {
   const mo = mmnt(datetime, "YYYY-MM-DDTHH:mm:ss.SSSZ")

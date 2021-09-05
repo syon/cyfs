@@ -1,5 +1,5 @@
-import cyfs from "../../index.js"
-import yaml from "js-yaml"
+const cyfs = require("../../index.js")
+const yaml = require("js-yaml")
 
 test("rename regex", async () => {
   const order = yaml.load(`
