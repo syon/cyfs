@@ -83,7 +83,7 @@ const result = await cyfs(order, { preview: true })
     type: 'F',
     byte: 10913,
     access_time: '2018-05-27T01:23',
-    modiry_time: '2018-05-20T12:59',
+    modify_time: '2018-05-20T12:59',
     change_time: '2018-05-27T01:22',
     birth_time: '2018-05-20T03:30',
     exif_date: '2013-01-05T11:21' },
@@ -92,7 +92,7 @@ const result = await cyfs(order, { preview: true })
     type: 'F',
     byte: 14439,
     access_time: '2018-05-27T01:23',
-    modiry_time: '2018-05-27T01:10',
+    modify_time: '2018-05-27T01:10',
     change_time: '2018-05-27T01:12',
     birth_time: '2018-05-27T01:10',
     exif_date: '2013-01-05T11:19' },
@@ -101,7 +101,7 @@ const result = await cyfs(order, { preview: true })
     type: 'F',
     byte: 19348,
     access_time: '2018-05-27T01:23',
-    modiry_time: '2018-05-27T01:10',
+    modify_time: '2018-05-27T01:10',
     change_time: '2018-05-27T01:12',
     birth_time: '2018-05-27T01:10',
     exif_date: '2013-03-09T11:42' } ]
@@ -112,7 +112,7 @@ const result = await cyfs(order, { preview: true })
   <summary>report.tsv</summary>
 
 ```txt
-dir	name	type	byte	access_time	modiry_time	change_time	birth_time	exif_date
+dir	name	type	byte	access_time	modify_time	change_time	birth_time	exif_date
 test/dataset/photos	tg2_drip.jpg	F	10913	2018-05-27T01:23	2018-05-20T12:59	2018-05-27T01:22	2018-05-20T03:30	2013-01-05T11:21
 test/dataset/photos	tg2_pink.jpg	F	14439	2018-05-27T01:23	2018-05-27T01:10	2018-05-27T01:12	2018-05-27T01:10	2013-01-05T11:19
 test/dataset/photos	tg2_red.jpg	F	19348	2018-05-27T01:23	2018-05-27T01:10	2018-05-27T01:12	2018-05-27T01:10	2013-03-09T11:42
