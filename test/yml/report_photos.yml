@@ -1,10 +1,4 @@
 select:
   pattern: "test/dataset/exif/**"
 action:
-  do: rename
-  args:
-    timestamp:
-      preferExif: true
-      format: "YYYY-MM-DDTHHmmss"
-      only: true
-    filesize: true
+  do: report
